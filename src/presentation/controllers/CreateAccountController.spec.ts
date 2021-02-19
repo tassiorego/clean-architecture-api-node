@@ -1,4 +1,4 @@
-import { CreateAccountController } from './CreateAccountController';
+import CreateAccountController from './CreateAccountController';
 
 describe('CreateAccountController', () => {
   it('should return 400 if no name is provided', () => {
