@@ -1,0 +1,7 @@
+{
+  "name": "clean-architecture-api-node",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Tassio Rego <tassiorego@gmail.com>",
+  "license": "MIT"
+}
