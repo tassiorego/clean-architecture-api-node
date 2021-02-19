@@ -1,9 +1,7 @@
-export class CreateAccountController {
-  handle(httpRequest: any): any {
+export default class CreateAccountController {
+  public handle(httpRequest: any): any {
     return {
       statusCode: 400,
-      teste,
-      des,
     };
   }
 }

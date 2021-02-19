@@ -26,6 +26,15 @@
   },
   "scripts": {
     "test": "jest",
-    "test:staged":"jest"
+    "test:staged": "jest",
+    "postinstall": "husky install"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.ts": "eslint --cache --fix"
   }
 }
