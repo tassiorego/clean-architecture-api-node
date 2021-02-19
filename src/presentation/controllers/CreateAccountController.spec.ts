@@ -1,3 +1,4 @@
+import { MissingParamError } from '../protocols/errors';
 import CreateAccountController from './CreateAccountController';
 
 describe('CreateAccountController', () => {
@@ -14,6 +15,6 @@ describe('CreateAccountController', () => {
 
     const httpResponse = sut.handle(httpRequest);
     expect(httpResponse.statusCode).toBe(400);
-    expect(httpResponse.body).toEqual(new Error('Missing param: name'));
+    expect(httpResponse.body).toEqual(new MissingParamError('name'));
   });
 });

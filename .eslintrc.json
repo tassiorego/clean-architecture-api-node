@@ -27,7 +27,8 @@
         "ts": "never"
       }
     ],
-    "class-methods-use-this":"off"
+    "class-methods-use-this":"off",
+    "max-classes-per-file":"off"
   },
   "settings": {
     "import/resolver": {
