@@ -1,3 +1,4 @@
+import { InternalError } from '../protocols/errors';
 import { HttpResponse } from '../protocols/http';
 
 export const badRequest = (error: Error): HttpResponse => {
@@ -7,9 +8,9 @@ export const badRequest = (error: Error): HttpResponse => {
   };
 };
 
-export const internalServerError = (error: Error): HttpResponse => {
+export const internalServerError = (): HttpResponse => {
   return {
     statusCode: 500,
-    body: error,
+    body: new InternalError(),
   };
 };

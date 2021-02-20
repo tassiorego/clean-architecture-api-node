@@ -41,7 +41,7 @@ export default class CreateAccountController implements Controller {
         body: '',
       };
     } catch (error) {
-      return internalServerError(new InternalError());
+      return internalServerError();
     }
   }
 }
