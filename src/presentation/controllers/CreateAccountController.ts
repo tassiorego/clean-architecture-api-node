@@ -1,7 +1,11 @@
-import { badRequest } from '../helpers/httpHelper';
+import { badRequest, internalServerError } from '../helpers/httpHelper';
 import { Controller } from '../protocols/controller';
 import { EmailValidator } from '../protocols/emailValidator';
-import { InvalidParamError, MissingParamError } from '../protocols/errors';
+import {
+  InternalError,
+  InvalidParamError,
+  MissingParamError,
+} from '../protocols/errors';
 import { HttpRequest, HttpResponse } from '../protocols/http';
 
 export default class CreateAccountController implements Controller {
@@ -12,28 +16,32 @@ export default class CreateAccountController implements Controller {
   }
 
   public handle(httpRequest: HttpRequest): HttpResponse {
-    const requiredFields = [
-      'name',
-      'email',
-      'password',
-      'passwordConfirmation',
-    ];
+    try {
+      const requiredFields = [
+        'name',
+        'email',
+        'password',
+        'passwordConfirmation',
+      ];
 
-    for (const field of requiredFields) {
-      if (!httpRequest.body[field]) {
-        return badRequest(new MissingParamError(field));
+      for (const field of requiredFields) {
+        if (!httpRequest.body[field]) {
+          return badRequest(new MissingParamError(field));
+        }
       }
+
+      const isValid = this.emailValidator.isValid(httpRequest.body.email);
+
+      if (!isValid) {
+        return badRequest(new InvalidParamError('email'));
+      }
+
+      return {
+        statusCode: 200,
+        body: '',
+      };
+    } catch (error) {
+      return internalServerError(new InternalError());
     }
-
-    const isValid = this.emailValidator.isValid(httpRequest.body.email);
-
-    if (!isValid) {
-      return badRequest(new InvalidParamError('email'));
-    }
-
-    return {
-      statusCode: 200,
-      body: '',
-    };
   }
 }
