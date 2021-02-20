@@ -4,8 +4,7 @@ import { HttpRequest, HttpResponse } from '../protocols/http';
 
 export default class CreateAccountController {
   public handle(httpRequest: HttpRequest): HttpResponse {
-    const { name } = httpRequest.body;
-    const requiredFields = ['name', 'email'];
+    const requiredFields = ['name', 'email', 'password'];
 
     for (const field of requiredFields) {
       if (!httpRequest.body[field]) {
