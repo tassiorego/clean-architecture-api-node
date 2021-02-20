@@ -28,7 +28,8 @@
       }
     ],
     "class-methods-use-this":"off",
-    "max-classes-per-file":"off"
+    "max-classes-per-file":"off",
+    "no-restricted-syntax":"off"
   },
   "settings": {
     "import/resolver": {

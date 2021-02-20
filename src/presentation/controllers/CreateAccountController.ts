@@ -4,10 +4,18 @@ import { HttpRequest, HttpResponse } from '../protocols/http';
 
 export default class CreateAccountController {
   public handle(httpRequest: HttpRequest): HttpResponse {
-    const { name, email } = httpRequest.body;
-    if (!name) {
-      return badRequest(new MissingParamError('name'));
+    const { name } = httpRequest.body;
+    const requiredFields = ['name', 'email'];
+
+    for (const field of requiredFields) {
+      if (!httpRequest.body[field]) {
+        return badRequest(new MissingParamError(field));
+      }
     }
-    return badRequest(new MissingParamError('email'));
+
+    return {
+      statusCode: 200,
+      body: '',
+    };
   }
 }
