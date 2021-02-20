@@ -5,6 +5,13 @@ export class MissingParamError extends Error {
   }
 }
 
+export class InvalidParamError extends Error {
+  constructor(paramName: string) {
+    super(`Invalid param: ${paramName}`);
+    this.name = 'InvalidParamError';
+  }
+}
+
 export class InternalError extends Error {
   constructor(paramName: string) {
     super(`Missing param: ${paramName}`);
