@@ -107,4 +107,22 @@ describe('CreateAccountController', () => {
     expect(httpResponse.statusCode).toBe(400);
     expect(httpResponse.body).toEqual(new InvalidParamError('email'));
   });
+
+  it('should call EmailValidator with correct email', () => {
+    const { sut, emailValidatorStub } = makeSut();
+
+    const emailValidartorSpy = jest.spyOn(emailValidatorStub, 'isValid');
+
+    const httpRequest = {
+      body: {
+        name: 'any_name',
+        email: 'invalid_mail@mail.com',
+        password: 'any_password',
+        passwordConfirmation: 'any_password',
+      },
+    };
+
+    sut.handle(httpRequest);
+    expect(emailValidartorSpy).toBeCalledWith('invalid_mail@mail.com');
+  });
 });
