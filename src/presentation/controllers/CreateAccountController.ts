@@ -1,12 +1,12 @@
 import { badRequest, internalServerError } from '../helpers/httpHelper';
-import { Controller } from '../protocols/controller';
-import { EmailValidator } from '../protocols/emailValidator';
 import {
-  InternalError,
+  Controller,
+  EmailValidator,
   InvalidParamError,
   MissingParamError,
-} from '../protocols/errors';
-import { HttpRequest, HttpResponse } from '../protocols/http';
+  HttpRequest,
+  HttpResponse,
+} from '../protocols';
 
 export default class CreateAccountController implements Controller {
   private readonly emailValidator: EmailValidator;

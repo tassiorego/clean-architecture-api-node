@@ -1,9 +1,10 @@
-import { EmailValidator } from '../protocols/emailValidator';
 import {
+  EmailValidator,
   MissingParamError,
   InvalidParamError,
   InternalError,
-} from '../protocols/errors';
+} from '../protocols';
+
 import CreateAccountController from './CreateAccountController';
 
 interface SutTypes {
