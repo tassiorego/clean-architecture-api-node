@@ -4,6 +4,10 @@ import { HttpRequest, HttpResponse } from '../protocols/http';
 
 export default class CreateAccountController {
   public handle(httpRequest: HttpRequest): HttpResponse {
-    return badRequest(new MissingParamError('name'));
+    const { name, email } = httpRequest.body;
+    if (!name) {
+      return badRequest(new MissingParamError('name'));
+    }
+    return badRequest(new MissingParamError('email'));
   }
 }
