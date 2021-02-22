@@ -1,3 +1,4 @@
+import { CreateAccount } from '../../domain/usecases/CreateAccount';
 import { badRequest, internalServerError } from '../helpers/httpHelper';
 import {
   Controller,
@@ -11,8 +12,11 @@ import {
 export default class CreateAccountController implements Controller {
   private readonly emailValidator: EmailValidator;
 
-  constructor(emailValidator: EmailValidator) {
+  private readonly createAccount: CreateAccount;
+
+  constructor(emailValidator: EmailValidator, createAccount: CreateAccount) {
     this.emailValidator = emailValidator;
+    this.createAccount = createAccount;
   }
 
   public handle(httpRequest: HttpRequest): HttpResponse {
@@ -24,7 +28,7 @@ export default class CreateAccountController implements Controller {
         'passwordConfirmation',
       ];
 
-      const { password, passwordConfirmation, email } = httpRequest.body;
+      const { name, password, passwordConfirmation, email } = httpRequest.body;
 
       for (const field of requiredFields) {
         if (!httpRequest.body[field]) {
@@ -41,6 +45,12 @@ export default class CreateAccountController implements Controller {
       if (!isValid) {
         return badRequest(new InvalidParamError('email'));
       }
+
+      this.createAccount.execute({
+        name,
+        email,
+        password,
+      });
 
       return {
         statusCode: 200,
