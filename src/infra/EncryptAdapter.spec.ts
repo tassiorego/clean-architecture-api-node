@@ -1,3 +1,4 @@
+import { rejects } from 'assert';
 import * as bcrypt from 'bcrypt';
 import EncryptAdapter from './EncryptAdapter';
 
@@ -24,5 +25,13 @@ describe('Encrypter Adapter', () => {
     const sut = makeSut();
     const hash = await sut.encrypt('any_value');
     expect(hash).toBe('hash');
+  });
+  test('should throw if brypt throws', async () => {
+    const sut = makeSut();
+    jest
+      .spyOn(bcrypt, 'hash')
+      .mockReturnValueOnce(new Promise((_, reject) => reject(new Error())));
+    const hash = sut.encrypt('any_value');
+    await expect(hash).rejects.toThrow();
   });
 });
