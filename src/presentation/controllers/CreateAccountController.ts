@@ -46,7 +46,7 @@ export default class CreateAccountController implements Controller {
         return badRequest(new InvalidParamError('email'));
       }
 
-      this.createAccount.execute({
+      const account = this.createAccount.execute({
         name,
         email,
         password,
@@ -54,7 +54,7 @@ export default class CreateAccountController implements Controller {
 
       return {
         statusCode: 200,
-        body: '',
+        body: account,
       };
     } catch (error) {
       return internalServerError();
