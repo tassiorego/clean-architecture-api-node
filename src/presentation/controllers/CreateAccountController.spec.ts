@@ -1,3 +1,8 @@
+import { AccountModel } from '../../domain/models/AccountModel';
+import {
+  CreateAccount,
+  CreateAccountModel,
+} from '../../domain/usecases/CreateAccount';
 import {
   EmailValidator,
   MissingParamError,
@@ -6,11 +11,6 @@ import {
 } from '../protocols';
 
 import CreateAccountController from './CreateAccountController';
-
-interface SutTypes {
-  sut: CreateAccountController;
-  emailValidatorStub: EmailValidator;
-}
 
 const makeEmailValidator = (): EmailValidator => {
   class EmailValidatorStub implements EmailValidator {
@@ -21,13 +21,40 @@ const makeEmailValidator = (): EmailValidator => {
   return new EmailValidatorStub();
 };
 
+const makeCreateAccount = (): CreateAccount => {
+  class CreateAccountStub implements CreateAccount {
+    execute(account: CreateAccountModel): AccountModel {
+      const fakeAccount = {
+        id: 'valid_id',
+        name: 'valid_name',
+        email: 'valid_email@mail.com',
+        password: 'valid_password',
+      };
+
+      return fakeAccount;
+    }
+  }
+  return new CreateAccountStub();
+};
+
+interface SutTypes {
+  sut: CreateAccountController;
+  emailValidatorStub: EmailValidator;
+  createAccountStub: CreateAccount;
+}
+
 const makeSut = (): SutTypes => {
   const emailValidatorStub = makeEmailValidator();
-  const sut = new CreateAccountController(emailValidatorStub);
+  const createAccountStub = makeCreateAccount();
+  const sut = new CreateAccountController(
+    emailValidatorStub,
+    createAccountStub,
+  );
 
   return {
     sut,
     emailValidatorStub,
+    createAccountStub,
   };
 };
 
@@ -173,5 +200,31 @@ describe('CreateAccountController', () => {
     const httpResponse = sut.handle(httpRequest);
     expect(httpResponse.statusCode).toBe(500);
     expect(httpResponse.body).toEqual(new InternalError());
+  });
+
+  it('should class CreateAccount with correct values', () => {
+    const { sut, createAccountStub } = makeSut();
+
+    const createAccoutnSpy = jest
+      .spyOn(createAccountStub, 'execute')
+      .mockImplementationOnce(() => {
+        throw new Error();
+      });
+
+    const httpRequest = {
+      body: {
+        name: 'any_name',
+        email: 'any_email@mail.com',
+        password: 'any_password',
+        passwordConfirmation: 'any_password',
+      },
+    };
+
+    sut.handle(httpRequest);
+    expect(createAccoutnSpy).toHaveBeenCalledWith({
+      name: 'any_name',
+      email: 'any_email@mail.com',
+      password: 'any_password',
+    });
   });
 });
