@@ -1,15 +1,18 @@
 import { Encrypter } from '../../protocols/Encrypter';
 import CreateAccountService from './CreateAccountService';
 
-const makeSut = (): any => {
+const makeEncrypter = (): Encrypter => {
   class EncrypterStub implements Encrypter {
     async encrypt(): Promise<string> {
       return new Promise(resolve => resolve('hashed_password'));
     }
   }
 
-  const encryptStub = new EncrypterStub();
+  return new EncrypterStub();
+};
 
+const makeSut = (): any => {
+  const encryptStub = makeEncrypter();
   const sut = new CreateAccountService(encryptStub);
 
   return {
