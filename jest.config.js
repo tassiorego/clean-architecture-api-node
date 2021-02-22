@@ -3,10 +3,11 @@
  * https://jestjs.io/docs/en/configuration.html
  */
 
-export default {
-  collectCoverageFrom: ['<rooDir>/src/**/*.ts'],
+module.exports = {
+  collectCoverageFrom: ['<rootDir>/src/**/*.ts'],
   coverageDirectory: 'coverage',
   // coverageProvider: 'v8',
+
 
   roots: ['<rootDir>/src'],
   testEnvironment: 'node',
