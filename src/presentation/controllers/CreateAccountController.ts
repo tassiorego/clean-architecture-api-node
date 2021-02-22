@@ -19,7 +19,7 @@ export default class CreateAccountController implements Controller {
     this.createAccount = createAccount;
   }
 
-  public handle(httpRequest: HttpRequest): HttpResponse {
+  public async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
       const requiredFields = [
         'name',
@@ -46,7 +46,7 @@ export default class CreateAccountController implements Controller {
         return badRequest(new InvalidParamError('email'));
       }
 
-      const account = this.createAccount.execute({
+      const account = await this.createAccount.execute({
         name,
         email,
         password,
