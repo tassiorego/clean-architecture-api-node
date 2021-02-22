@@ -49,7 +49,7 @@ const makeSut = (): SutType => {
   };
 };
 
-describe('DBCreateAccount Usecase', () => {
+describe('CreateAccountService Usecase', () => {
   test('should call Encrypter with correct password', async () => {
     const accountData = {
       name: 'valid_name',
@@ -104,5 +104,25 @@ describe('DBCreateAccount Usecase', () => {
       email: 'valid_email',
       password: 'hashed_password',
     });
+  });
+
+  test('should throw AddAccountRepository if throws', async () => {
+    const { sut, addAccountRepository } = makeSut();
+
+    jest
+      .spyOn(addAccountRepository, 'execute')
+      .mockReturnValueOnce(
+        new Promise((resolve, reject) => reject(new Error())),
+      );
+
+    const accountData = {
+      name: 'valid_name',
+      email: 'valid_email',
+      password: 'valid_password',
+    };
+
+    const response = sut.execute(accountData);
+
+    await expect(response).rejects.toThrow();
   });
 });
