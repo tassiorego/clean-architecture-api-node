@@ -1,5 +1,5 @@
 import { CreateAccount } from '../../domain/usecases/CreateAccount';
-import { badRequest, internalServerError } from '../helpers/httpHelper';
+import { badRequest, internalServerError, ok } from '../helpers/httpHelper';
 import {
   Controller,
   EmailValidator,
@@ -52,10 +52,7 @@ export default class CreateAccountController implements Controller {
         password,
       });
 
-      return {
-        statusCode: 200,
-        body: account,
-      };
+      return ok(account);
     } catch (error) {
       return internalServerError();
     }

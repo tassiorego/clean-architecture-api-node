@@ -14,3 +14,8 @@ export const internalServerError = (): HttpResponse => {
     body: new InternalError(),
   };
 };
+
+export const ok = (data: any): HttpResponse => ({
+  statusCode: 200,
+  body: data,
+});
