@@ -3,3 +3,4 @@ dir
 *.lock
 .eslintcache
 coverage
+globalConfig.json
