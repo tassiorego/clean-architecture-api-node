@@ -1,4 +1,3 @@
-import { rejects } from 'assert';
 import * as bcrypt from 'bcrypt';
 import EncryptAdapter from './EncryptAdapter';
 
