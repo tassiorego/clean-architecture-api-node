@@ -2,7 +2,7 @@
 import * as request from 'supertest';
 import app from '../config/app';
 
-describe('Body parser Middleware', () => {
+describe('CORS Middleware', () => {
   test('should parse body as json', async () => {
     app.get('/test_cors', (req, res) => {
       res.send();
