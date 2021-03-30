@@ -14,7 +14,7 @@ import CreateAccountController from './CreateAccountController';
 
 const makeEmailValidator = (): EmailValidator => {
   class EmailValidatorStub implements EmailValidator {
-    isValid(email: string): boolean {
+    isValid(): boolean {
       return true;
     }
   }
@@ -23,7 +23,7 @@ const makeEmailValidator = (): EmailValidator => {
 
 const makeCreateAccount = (): CreateAccount => {
   class CreateAccountStub implements CreateAccount {
-    async execute(account: CreateAccountModel): Promise<AccountModel> {
+    async execute(): Promise<AccountModel> {
       const fakeAccount = {
         id: 'valid_id',
         name: 'valid_name',
