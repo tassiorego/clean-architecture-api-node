@@ -1,8 +1,5 @@
 import { AccountModel } from '../../domain/models/AccountModel';
-import {
-  CreateAccount,
-  CreateAccountModel,
-} from '../../domain/usecases/CreateAccount';
+import { CreateAccount } from '../../domain/usecases/CreateAccount';
 import {
   EmailValidator,
   MissingParamError,
