@@ -1,3 +1,4 @@
 import app from './config/app';
+import 'dotenv/config';
 
-app.listen(4040);
+app.listen(process.env.API_PORT);

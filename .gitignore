@@ -1,6 +1,8 @@
 node_modules
 dir
+.env
 *.lock
 .eslintcache
 coverage
 globalConfig.json
+npm-debug.log
