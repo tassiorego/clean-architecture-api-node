@@ -33,7 +33,7 @@
     "typescript": "^4.1.5"
   },
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only src/main/server.ts",
+    "start:dev": "ts-node-dev --respawn --transpile-only src/main/server.ts",
     "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
     "test:verbose": "jest --passWithNoTests --runInBand",
     "test:unit": "yarn test --watch -c jest-unit-config.js",
