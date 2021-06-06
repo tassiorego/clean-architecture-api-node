@@ -7,7 +7,7 @@ import {
   InternalError,
 } from '../protocols';
 
-import CreateAccountController from './CreateAccountController';
+import { CreateAccountController } from './CreateAccountController';
 
 const makeEmailValidator = (): EmailValidator => {
   class EmailValidatorStub implements EmailValidator {

@@ -9,7 +9,7 @@ import {
   HttpResponse,
 } from '../protocols';
 
-export default class CreateAccountController implements Controller {
+export class CreateAccountController implements Controller {
   private readonly emailValidator: EmailValidator;
 
   private readonly createAccount: CreateAccount;
