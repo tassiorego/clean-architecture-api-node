@@ -6,7 +6,7 @@ import {
 import { AddAccountRepository } from '../../protocols/AddAccountRepository';
 import { Encrypter } from '../../protocols/Encrypter';
 
-export default class CreateAccountService implements CreateAccount {
+export class CreateAccountService implements CreateAccount {
   private readonly encrypter: Encrypter;
 
   private readonly addAccountRepository: AddAccountRepository;
